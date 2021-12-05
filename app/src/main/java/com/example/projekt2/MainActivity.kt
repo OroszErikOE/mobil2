@@ -5,22 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import com.example.projekt2.data.currencyData
 import com.example.projekt2.databinding.ActivityMainBinding
 import com.example.projekt2.network.NetworkManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
-
-
-
-
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -65,16 +56,58 @@ class MainActivity : AppCompatActivity() {
     }
     private fun displayCurr(currencyData: currencyData?){
         if(currencyData!=null){
+            var i_2 = ""
+            var i_1 = ""
+            var flax = false
+            var currBuffer = ""
+            //binding.fromSpinner.text = convertedToCurrency[2].toString()
+            for (i in currencyData.rates.toString())
+            {
+                if(i_2 == "")
+                {
+                    i_2 = i.toString()
+                }
+                else if(i_1 == "" && i_2 != "")
+                {
+                    i_1 = i.toString()
+                }
+                else if(i_2.toString() == convertedToCurrency[0].toString() &&  i_1.toString() == convertedToCurrency[1].toString() && i.toString() == convertedToCurrency[2].toString())
+                {
+                    Log.d("Tik",i_2.toString().plus("i2"))
+                    Log.d("Tik",i_1.toString().plus("i1"))
+                    Log.d("Tik",i.toString())
+                    binding.fromSpinner.text = i_2.toString().plus(i_1.toString()).plus(i.toString())
+                    flax = true
+                }
+                else if(flax == true)
+                {
+                    Log.d("Tik",i.toString())
+                    if(i.toString() == ",")
+                    {
+                        break
+                    }
+                    else if(i.toString() != "=")
+                    {
+                        currBuffer = currBuffer.plus(i.toString())
+                    }
+                }
+                else
+                {
+                    i_2 = ""
+                    i_1 = ""
+                    Log.d("Tik","run")
+                }
 
-            if(convertedToCurrency == "HUF") binding.totView.text=(currencyData?.rates?.HUF?.times(
-                binding.fromint.text.toString().toDouble()
+            }
+            binding.currBuff.text =currBuffer.toString()
+            Log.d("Tik","end")
+            binding.totView.text=(currBuffer.toString().toDouble().times(binding.fromint.text.toString().toDouble()
             )).toString()
-
         }
     }
     private fun spinnerLoad() {
 
-        val fromSpinner: Spinner = binding.fromSpinner
+        val fromSpinner: TextView = binding.fromSpinner
         val toSpinner: Spinner = binding.toSpinner
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
@@ -85,7 +118,6 @@ class MainActivity : AppCompatActivity() {
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
-            fromSpinner.adapter = adapter
             toSpinner.adapter = adapter
         }
         // An item was selected. You can retrieve the selected item using
