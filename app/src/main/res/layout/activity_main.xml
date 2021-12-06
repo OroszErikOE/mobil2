@@ -4,90 +4,115 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:id="@+id/fromSpinner"
-        android:layout_width="269dp"
-        android:layout_height="58dp"
-
-        android:layout_marginTop="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.514"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fromView" />
+    android:paddingHorizontal="32dp"
+    tools:context=".MainActivity"
+    android:background="@drawable/gradient_list"
+    android:id="@+id/mainLayout">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/fromView"
-        android:layout_width="212dp"
-        android:layout_height="88dp"
-        android:layout_marginTop="150dp"
-        app:layout_constraintBottom_toTopOf="@+id/fromSpinner"
-        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Amount"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/toSpinner"
+        app:layout_constraintEnd_toStartOf="@+id/myfromCurr"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/toSpinner">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/fromint"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Spinner
         android:id="@+id/toSpinner"
-        android:layout_width="273dp"
-        android:layout_height="81dp"
-        android:layout_marginTop="58dp"
-        android:layout_marginBottom="47dp"
-        app:layout_constraintBottom_toTopOf="@+id/currbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/currency_codes"
+        android:padding="15dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/totView"
-        tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/myto" />
 
     <Button
         android:id="@+id/currbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="158dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="159dp"
-        android:layout_marginBottom="50dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button"
+        android:text="Convert"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toSpinner"
-        app:layout_constraintVertical_bias="0.421"
         tools:ignore="MissingConstraints" />
+
 
     <TextView
         android:id="@+id/totView"
-        android:layout_width="85dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="163dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="163dp"
-        android:layout_marginBottom="20dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/toSpinner"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/currbutton"
+        app:layout_constraintEnd_toStartOf="@+id/currbutton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fromSpinner"
-        app:layout_constraintVertical_bias="0.93"
+        app:layout_constraintTop_toTopOf="@+id/currbutton"
         tools:ignore="MissingConstraints" />
 
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
+
     <TextView
-        android:id="@+id/currBuff"
-        android:layout_width="97dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:text="TextView"
+        android:id="@+id/myTittle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Currency Converter"
+        android:textColor="@color/black"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/myfrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="From"
+        app:layout_constraintStart_toStartOf="@+id/myfromCurr"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <TextView
+        android:id="@+id/myto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="To"
+        app:layout_constraintStart_toStartOf="@+id/toSpinner"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <TextView
+        android:id="@+id/myfromCurr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="136dp"
+        android:text="EUR"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/toSpinner"
+        app:layout_constraintEnd_toStartOf="@+id/toSpinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myfrom" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

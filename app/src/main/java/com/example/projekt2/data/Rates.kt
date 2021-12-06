@@ -1,7 +1,7 @@
 package com.example.projekt2.data
 
 data class Rates(
-    var AED: Double?,
+    var AED: String,
     var AFN: Double?,
     var ALL: Double?,
     var AMD: Double?,

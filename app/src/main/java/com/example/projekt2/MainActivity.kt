@@ -1,11 +1,12 @@
 package com.example.projekt2
 
 import android.content.ContentValues.TAG
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import com.example.projekt2.data.currencyData
 import com.example.projekt2.databinding.ActivityMainBinding
 import com.example.projekt2.network.NetworkManager
@@ -16,7 +17,7 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
 
     private lateinit var  binding: ActivityMainBinding
-    var convertedToCurrency = "USD"
+    var convertedToCurrency = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,10 +26,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         spinnerLoad()
         initFab()
+
+        val animationDrawable = binding.mainLayout.background as AnimationDrawable
+        animationDrawable.setEnterFadeDuration(2500)
+        animationDrawable.setExitFadeDuration(5000)
+        animationDrawable.start()
+
     }
     private fun initFab() {
         binding.currbutton.setOnClickListener {
-            loadCurrencyData()
+            if(!binding.fromint.text.isNullOrEmpty())
+            {
+                loadCurrencyData()
+            }
+            else
+            {
+                Toast.makeText(this@MainActivity, "Nem írtál be semmit! ", Toast.LENGTH_LONG).show()
+            }
         }
     }
     private fun loadCurrencyData() {
@@ -56,58 +70,20 @@ class MainActivity : AppCompatActivity() {
     }
     private fun displayCurr(currencyData: currencyData?){
         if(currencyData!=null){
-            var i_2 = ""
-            var i_1 = ""
-            var flax = false
-            var currBuffer = ""
-            //binding.fromSpinner.text = convertedToCurrency[2].toString()
-            for (i in currencyData.rates.toString())
+            var lines = currencyData . rates . toString ().substring(6).split(",")
+            for(i in lines)
             {
-                if(i_2 == "")
+                if(i.contains(convertedToCurrency))
                 {
-                    i_2 = i.toString()
+                    var number = 0f
+                    number = i.split("=").get(1).toDouble().times(binding.fromint.text.toString().toDouble()).toFloat()
+                    binding.totView.text = number.toString().plus(" ").plus(convertedToCurrency.toString())
                 }
-                else if(i_1 == "" && i_2 != "")
-                {
-                    i_1 = i.toString()
-                }
-                else if(i_2.toString() == convertedToCurrency[0].toString() &&  i_1.toString() == convertedToCurrency[1].toString() && i.toString() == convertedToCurrency[2].toString())
-                {
-                    Log.d("Tik",i_2.toString().plus("i2"))
-                    Log.d("Tik",i_1.toString().plus("i1"))
-                    Log.d("Tik",i.toString())
-                    binding.fromSpinner.text = i_2.toString().plus(i_1.toString()).plus(i.toString())
-                    flax = true
-                }
-                else if(flax == true)
-                {
-                    Log.d("Tik",i.toString())
-                    if(i.toString() == ",")
-                    {
-                        break
-                    }
-                    else if(i.toString() != "=")
-                    {
-                        currBuffer = currBuffer.plus(i.toString())
-                    }
-                }
-                else
-                {
-                    i_2 = ""
-                    i_1 = ""
-                    Log.d("Tik","run")
-                }
-
             }
-            binding.currBuff.text =currBuffer.toString()
-            Log.d("Tik","end")
-            binding.totView.text=(currBuffer.toString().toDouble().times(binding.fromint.text.toString().toDouble()
-            )).toString()
         }
     }
     private fun spinnerLoad() {
 
-        val fromSpinner: TextView = binding.fromSpinner
         val toSpinner: Spinner = binding.toSpinner
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(

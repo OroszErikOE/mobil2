@@ -3,7 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Erichox/AndroidStudioProjects/projekt2/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/Erichox/AndroidStudioProjects/projekt2/app/src/main/res/drawable/background_1.xml" value="0.20092592592592592" />
+        <entry key="..\:/Users/Erichox/AndroidStudioProjects/projekt2/app/src/main/res/drawable/background_2.xml" value="0.20092592592592592" />
+        <entry key="..\:/Users/Erichox/AndroidStudioProjects/projekt2/app/src/main/res/drawable/background_3.xml" value="0.20092592592592592" />
+        <entry key="..\:/Users/Erichox/AndroidStudioProjects/projekt2/app/src/main/res/drawable/button.xml" value="0.4453125" />
+        <entry key="..\:/Users/Erichox/AndroidStudioProjects/projekt2/app/src/main/res/drawable/gradient_list.xml" value="0.2" />
+        <entry key="..\:/Users/Erichox/AndroidStudioProjects/projekt2/app/src/main/res/layout/activity_main.xml" value="0.5" />
       </map>
     </option>
   </component>
