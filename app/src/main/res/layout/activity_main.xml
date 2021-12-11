@@ -2,12 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="32dp"
-    tools:context=".MainActivity"
     android:background="@drawable/gradient_list"
-    android:id="@+id/mainLayout">
+    android:paddingHorizontal="32dp"
+    tools:context=".MainActivity">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/fromView"
@@ -15,8 +15,8 @@
 
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Amount"
         android:layout_marginEnd="16dp"
+        android:hint="Amount"
         app:layout_constraintBottom_toBottomOf="@+id/toSpinner"
         app:layout_constraintEnd_toStartOf="@+id/myfromCurr"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,9 +33,9 @@
         android:id="@+id/toSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:entries="@array/currency_codes"
         android:padding="15dp"
-        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/myto" />
 
@@ -55,8 +55,8 @@
         android:id="@+id/totView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
         android:layout_marginEnd="16dp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/currbutton"
         app:layout_constraintEnd_toStartOf="@+id/currbutton"
         app:layout_constraintStart_toStartOf="parent"

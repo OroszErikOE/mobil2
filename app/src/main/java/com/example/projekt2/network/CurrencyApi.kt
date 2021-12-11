@@ -6,8 +6,8 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface CurrencyApi {
-        @GET("/v1/latest")
-        fun getCurrency(
-            @Query("access_key") access_key: String?,
-        ): Call<currencyData?>?
-    }
+    @GET("/v1/latest")
+    fun getCurrency(
+        @Query("access_key") access_key: String?,
+    ): Call<currencyData?>?
+}

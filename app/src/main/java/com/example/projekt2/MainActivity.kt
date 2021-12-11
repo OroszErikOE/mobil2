@@ -16,7 +16,7 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var  binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     var convertedToCurrency = ""
 
 
@@ -26,25 +26,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         spinnerLoad()
         initFab()
-
         val animationDrawable = binding.mainLayout.background as AnimationDrawable
         animationDrawable.setEnterFadeDuration(2500)
         animationDrawable.setExitFadeDuration(5000)
         animationDrawable.start()
 
     }
+
     private fun initFab() {
         binding.currbutton.setOnClickListener {
-            if(!binding.fromint.text.isNullOrEmpty())
-            {
+            if (!binding.fromint.text.isNullOrEmpty()) {
                 loadCurrencyData()
-            }
-            else
-            {
+            } else {
                 Toast.makeText(this@MainActivity, "Nem írtál be semmit! ", Toast.LENGTH_LONG).show()
             }
         }
     }
+
     private fun loadCurrencyData() {
         NetworkManager.getCurrency()?.enqueue(object : Callback<currencyData?> {
             override fun onResponse(
@@ -55,7 +53,11 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     displayCurr(response.body())
                 } else {
-                    Toast.makeText(this@MainActivity, "Error: " + response.message(), Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Error: " + response.message(),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
 
@@ -64,24 +66,30 @@ class MainActivity : AppCompatActivity() {
                 throwable: Throwable
             ) {
                 throwable.printStackTrace()
-                Toast.makeText(this@MainActivity, "Network request error occured, check LOG", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this@MainActivity,
+                    "Network request error occured, check LOG",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         })
     }
-    private fun displayCurr(currencyData: currencyData?){
-        if(currencyData!=null){
-            var lines = currencyData . rates . toString ().substring(6).split(",")
-            for(i in lines)
-            {
-                if(i.contains(convertedToCurrency))
-                {
+
+    private fun displayCurr(currencyData: currencyData?) {
+        if (currencyData != null) {
+            var lines = currencyData.rates.toString().substring(6).split(",")
+            for (i in lines) {
+                if (i.contains(convertedToCurrency)) {
                     var number = 0f
-                    number = i.split("=").get(1).toDouble().times(binding.fromint.text.toString().toDouble()).toFloat()
-                    binding.totView.text = number.toString().plus(" ").plus(convertedToCurrency.toString())
+                    number = i.split("=").get(1).toDouble()
+                        .times(binding.fromint.text.toString().toDouble()).toFloat()
+                    binding.totView.text =
+                        number.toString().plus(" ").plus(convertedToCurrency.toString())
                 }
             }
         }
     }
+
     private fun spinnerLoad() {
 
         val toSpinner: Spinner = binding.toSpinner
@@ -103,6 +111,7 @@ class MainActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 // Another interface callback
             }
+
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
