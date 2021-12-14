@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                 response: Response<currencyData?>
             ) {
                 Log.d(TAG, "onResponse: " + response.code())
-                if (response.isSuccessful) {
+                if (response.isSuccessful && response != null) {
                     displayCurr(response.body())
                 } else {
                     Toast.makeText(
@@ -75,17 +75,24 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun getCurrencies(currencyData: currencyData?): List<String> {
+        return currencyData?.rates.toString().substring(6).split(",")
+    }
+
+    private fun getSelectedCurrency(line: String): Long {
+        return Math.round(
+            line.split("=").get(1).toDouble()
+                .times(binding.fromint.text.toString().toDouble())
+        )
+    }
+
     private fun displayCurr(currencyData: currencyData?) {
-        if (currencyData != null) {
-            var lines = currencyData.rates.toString().substring(6).split(",")
-            for (i in lines) {
-                if (i.contains(convertedToCurrency)) {
-                    var number = 0f
-                    number = i.split("=").get(1).toDouble()
-                        .times(binding.fromint.text.toString().toDouble()).toFloat()
-                    binding.totView.text =
-                        number.toString().plus(" ").plus(convertedToCurrency.toString())
-                }
+        val lines = getCurrencies(currencyData)
+        for (line in lines) {
+            if (line.contains(convertedToCurrency)) {
+                var number = getSelectedCurrency(line)
+                binding.toView.text =
+                    number.toString().plus(" ").plus(convertedToCurrency)
             }
         }
     }
